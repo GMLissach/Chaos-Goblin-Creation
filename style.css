@@ -290,4 +290,13 @@ footer {
   80% { transform: translate(2px, -3px) rotate(2deg); }
   100% { transform: translate(0px, 0px) rotate(0deg); }
 }
+#decoyButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 2px solid #555;
+  background-color: #ddd;
+  color: #222;
+  cursor: pointer;
+  z-index: 999;
+}
 
