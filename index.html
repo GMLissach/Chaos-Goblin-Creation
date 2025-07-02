@@ -103,6 +103,13 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
     img.style.borderRadius = "8px";
     img.draggable = true;
 
+    img.addEventListener("click", () => {
+    const fart = document.getElementById("keithFart");
+    if (fart) {
+      fart.currentTime = 0;
+      fart.play();
+    }
+  });
     // Drag events
     img.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", "keith");
