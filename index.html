@@ -75,8 +75,12 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
   </div>
 <script>
   const keithImgUrl = "https://gmlissach.github.io/Chaos-Goblin-Creation/keith-face-small.png";
+  let keithsInBin = 0;
+  let keithSpreadActive = true;
 
   function infectElement(el) {
+    if (!keithSpreadActive) return;
+
     const wrapper = document.createElement("div");
     wrapper.style.display = "inline-block";
     wrapper.style.width = el.offsetWidth + "px";
@@ -95,12 +99,20 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
     img.style.transform = "translate(-50%, -50%) scale(1.1)";
     img.style.objectFit = "cover";
     img.style.borderRadius = "8px";
+    img.draggable = true;
+
+    // Drag events
+    img.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", "keith");
+    });
 
     wrapper.appendChild(img);
     el.replaceWith(wrapper);
   }
 
   function startKeithInfection() {
+    if (!keithSpreadActive) return;
+
     const allEls = Array.from(document.querySelectorAll("button, h1, h2, h3, .goblin-button, .hero, .team-member"));
     if (allEls.length === 0) return;
 
@@ -111,8 +123,36 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
     setTimeout(startKeithInfection, delay);
   }
 
+  // Bin logic
+  const bin = document.getElementById("keithBin");
+  bin.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    bin.classList.add("drag-over");
+  });
+
+  bin.addEventListener("dragleave", () => {
+    bin.classList.remove("drag-over");
+  });
+
+  bin.addEventListener("drop", (e) => {
+    e.preventDefault();
+    bin.classList.remove("drag-over");
+
+    const data = e.dataTransfer.getData("text/plain");
+    if (data === "keith") {
+      keithsInBin++;
+      if (keithsInBin >= 3) {
+        keithSpreadActive = false;
+        bin.textContent = "🪦 RIP Keith";
+        alert("Keith has been binned. He’ll think about what he’s done.");
+      }
+    }
+  });
+
+  // Start the spread
   setTimeout(startKeithInfection, 3000);
 </script>
+>
 
 <!-- The Bin -->
 <div id="keithBin" title="Drop Keith here to stop him">🗑️</div>
