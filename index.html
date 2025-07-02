@@ -5,28 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chaos Goblin Art Project</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
   <div class="layout">
-
     <nav class="sidebar">
       <img src="keith-face-small.png" alt="Keith the Goblin" class="keith-face">
-<div class="keith-pointer">
-  <div class="neon-arrow">⇧</div>
-  <div class="keith-label">This is just Keith.<br>Keith just works here.</div>
-</div>
-
+      <div class="keith-pointer">
+        <div class="neon-arrow">⇧</div>
+        <div class="keith-label">This is just Keith.<br>Keith just works here.</div>
+      </div>
       <h1>Chaos Goblin</h1>
       <ul>
-       <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="who-what-now.html">Who, what now?</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li><a href="so-whats-the-point.html">So... what's the point?</a></li>
         <li><a href="what-might-be-next.html">What might be next?</a></li>
         <li><a href="a-lesson-ai.html">A Lesson - AI</a></li>
         <li><a href="privacy-policy-and-legal-bits.html">Privacy & Terms</a></li>
-
       </ul>
     </nav>
 
@@ -47,25 +43,20 @@
 
       <section class="services">
         <h2>What's All This Then?</h2>
-        <p>
-          Chaos Goblin is a collaborative community project based on a chaotic and poetic story about neurodivergent experience.</p>
-<p>We're looking for people aged 9 to 100 to help bring it to life by illustrating surprise scenes from the story. Under 18's will need parental permission.</p>
-        </p>
-        <p>
-          Each person who is chosen will receive a unique, randomly assigned scene to draw. Your interpretation can be as weird, wild, or as whimsical as you like.
-        </p>
+        <p>Chaos Goblin is a collaborative community project based on a chaotic and poetic story about neurodivergent experience.</p>
+        <p>We're looking for people aged 9 to 100 to help bring it to life by illustrating surprise scenes from the story. Under 18's will need parental permission.</p>
+        <p>Each person who is chosen will receive a unique, randomly assigned scene to draw. Your interpretation can be as weird, wild, or as whimsical as you like.</p>
         <ul>
-          <li> <strong>30 contributors needed</strong> to illustrate the core scenes.</li>
-          <li> Extra entries beyond that will still be displayed in our online gallery. (Top 20? Not sure yet)</li>
-          <li> All skill levels welcome. Doodlers, artists, and scribblers alike.</li>
-          <li> If you are chosen, you’ll get your scene and submission info via email.</li>
-          <li> Once we have around 100 submissions, we will begin the selection process</li>
+          <li><strong>30 contributors needed</strong> to illustrate the core scenes.</li>
+          <li>Extra entries beyond that will still be displayed in our online gallery. (Top 20? Not sure yet)</li>
+          <li>All skill levels welcome. Doodlers, artists, and scribblers alike.</li>
+          <li>If you are chosen, you’ll get your scene and submission info via email.</li>
+          <li>Once we have around 100 submissions, we will begin the selection process</li>
         </ul>
         <p style="margin-top: 1rem;">
           If you’re ready to join the goblin chaos and draw something magical (or slightly unhinged), head to the <a href="get-involved.html">Get Involved</a> page to register.
-Oh hey, if you want any more info just click those links on the left. Go on, go on now. Go. 
-          <p>Yes, we know the button doesn't work. No, YOU are stuck in 2006. Thanks, Keith</p>
         </p>
+        <p>Yes, we know the button doesn't work. No, YOU are stuck in 2006. Thanks, Keith</p>
       </section>
 
       <footer>
@@ -73,96 +64,115 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
       </footer>
     </div>
   </div>
+
   <!-- The Bin -->
-<div id="keithBin" title="Drop Keith here to stop him">🗑️</div>
-<script>
-  const keithImgUrl = "https://gmlissach.github.io/Chaos-Goblin-Creation/keith-face-small.png";
-  let keithsInBin = 0;
-  let keithSpreadActive = true;
+  <div id="keithBin" title="Drop Keith here to stop him">🗑️</div>
 
-  function infectElement(el) {
-    if (!keithSpreadActive) return;
+  <!-- Keith Fart Sound -->
+  <audio id="keithFart">
+    <source src="fart.mp3" type="audio/mpeg" />
+  </audio>
 
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "inline-block";
-    wrapper.style.width = el.offsetWidth + "px";
-    wrapper.style.height = el.offsetHeight + "px";
-    wrapper.style.overflow = "hidden";
-    wrapper.style.position = "relative";
+  <!-- Chaos Script -->
+  <script>
+    const keithImgUrl = "https://gmlissach.github.io/Chaos-Goblin-Creation/keith-face-small.png";
+    let keithsInBin = 0;
+    let keithSpreadActive = true;
+    const originalElements = [];
 
-    const img = document.createElement("img");
-    img.src = keithImgUrl;
-    img.alt = "Keith is watching";
-    img.style.maxWidth = "100%";
-    img.style.maxHeight = "100%";
-    img.style.position = "absolute";
-    img.style.top = "50%";
-    img.style.left = "50%";
-    img.style.transform = "translate(-50%, -50%) scale(1.1)";
-    img.style.objectFit = "cover";
-    img.style.borderRadius = "8px";
-    img.draggable = true;
+    function infectElement(el) {
+      if (!keithSpreadActive) return;
 
-    img.addEventListener("click", () => {
-    const fart = document.getElementById("keithFart");
-    if (fart) {
-      fart.currentTime = 0;
-      fart.play();
+      // Save original
+      const clone = el.cloneNode(true);
+      originalElements.push({ parent: el.parentNode, original: clone });
+
+      const wrapper = document.createElement("div");
+      wrapper.style.display = "inline-block";
+      wrapper.style.width = el.offsetWidth + "px";
+      wrapper.style.height = el.offsetHeight + "px";
+      wrapper.style.overflow = "hidden";
+      wrapper.style.position = "relative";
+
+      const img = document.createElement("img");
+      img.src = keithImgUrl;
+      img.alt = "Keith is watching";
+      img.style.maxWidth = "100%";
+      img.style.maxHeight = "100%";
+      img.style.position = "absolute";
+      img.style.top = "50%";
+      img.style.left = "50%";
+      img.style.transform = "translate(-50%, -50%) scale(1.1)";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "8px";
+      img.draggable = true;
+
+      img.addEventListener("click", () => {
+        const fart = document.getElementById("keithFart");
+        if (fart) {
+          fart.currentTime = 0;
+          fart.play();
+        }
+      });
+
+      img.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", "keith");
+      });
+
+      wrapper.appendChild(img);
+      el.replaceWith(wrapper);
     }
-  });
-    // Drag events
-    img.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", "keith");
-    });
 
-    wrapper.appendChild(img);
-    el.replaceWith(wrapper);
-  }
+    function startKeithInfection() {
+      if (!keithSpreadActive) return;
 
-  function startKeithInfection() {
-    if (!keithSpreadActive) return;
+      const allEls = Array.from(document.querySelectorAll("button, h1, h2, h3, .goblin-button, .hero, .team-member"));
+      if (allEls.length === 0) return;
 
-    const allEls = Array.from(document.querySelectorAll("button, h1, h2, h3, .goblin-button, .hero, .team-member"));
-    if (allEls.length === 0) return;
+      const randomEl = allEls[Math.floor(Math.random() * allEls.length)];
+      infectElement(randomEl);
 
-    const randomEl = allEls[Math.floor(Math.random() * allEls.length)];
-    infectElement(randomEl);
-
-    const delay = Math.random() * 3000 + 1500;
-    setTimeout(startKeithInfection, delay);
-  }
-
-  // Bin logic
-  const bin = document.getElementById("keithBin");
-  bin.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    bin.classList.add("drag-over");
-  });
-
-  bin.addEventListener("dragleave", () => {
-    bin.classList.remove("drag-over");
-  });
-
-  bin.addEventListener("drop", (e) => {
-    e.preventDefault();
-    bin.classList.remove("drag-over");
-
-    const data = e.dataTransfer.getData("text/plain");
-    if (data === "keith") {
-      keithsInBin++;
-      if (keithsInBin >= 3) {
-        keithSpreadActive = false;
-        bin.textContent = "🪦 RIP Keith";
-        alert("Keith has been binned. He’ll think about what he’s done.");
+      if (keithSpreadActive) {
+        const delay = Math.random() * 3000 + 1500;
+        setTimeout(startKeithInfection, delay);
       }
     }
-  });
 
-  // Start the spread
-  setTimeout(startKeithInfection, 3000);
-</script>
-<audio id="keithFart">
-  <source src="fart.mp3" type="audio/mpeg" />
-</audio>
+    function restoreOriginalElements() {
+      originalElements.forEach(({ parent, original }) => {
+        parent.appendChild(original);
+      });
+      originalElements.length = 0;
+    }
+
+    // Bin setup
+    const bin = document.getElementById("keithBin");
+    bin.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      bin.classList.add("drag-over");
+    });
+    bin.addEventListener("dragleave", () => {
+      bin.classList.remove("drag-over");
+    });
+    bin.addEventListener("drop", (e) => {
+      e.preventDefault();
+      bin.classList.remove("drag-over");
+      const data = e.dataTransfer.getData("text/plain");
+      if (data === "keith") {
+        keithsInBin++;
+        if (keithsInBin >= 3) {
+          keithSpreadActive = false;
+          bin.textContent = "🪦 RIP Keith";
+          alert("Keith has been binned. Get back to work.");
+          restoreOriginalElements();
+        }
+      }
+    });
+
+    // Start infection only when clicked
+    document.getElementById("clickMe1").addEventListener("click", () => {
+      startKeithInfection();
+    });
+  </script>
 </body>
 </html>
