@@ -73,42 +73,47 @@ Oh hey, if you want any more info just click those links on the left. Go on, go 
       </footer>
     </div>
   </div>
-  <script>
-const keithImgUrl = "https://gmlissach.github.io/Chaos-Goblin-Creation/keith-face-small.png";
+<script>
+  const keithImgUrl = "https://gmlissach.github.io/Chaos-Goblin-Creation/keith-face-small.png";
 
   function infectElement(el) {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "inline-block";
+    wrapper.style.width = el.offsetWidth + "px";
+    wrapper.style.height = el.offsetHeight + "px";
+    wrapper.style.overflow = "hidden";
+    wrapper.style.position = "relative";
+
     const img = document.createElement("img");
     img.src = keithImgUrl;
-    img.className = "keith-face";
-    img.alt = "Keith takes over";
-    img.style.width = el.offsetWidth + "px";
-    img.style.height = el.offsetHeight + "px";
+    img.alt = "Keith is watching";
+    img.style.maxWidth = "100%";
+    img.style.maxHeight = "100%";
+    img.style.position = "absolute";
+    img.style.top = "50%";
+    img.style.left = "50%";
+    img.style.transform = "translate(-50%, -50%) scale(1.1)";
     img.style.objectFit = "cover";
-    img.style.transition = "transform 0.3s ease";
-    img.addEventListener("mouseover", () => {
-      img.style.transform = "rotate(5deg) scale(1.05)";
-    });
-    img.addEventListener("mouseout", () => {
-      img.style.transform = "none";
-    });
-    el.replaceWith(img);
+    img.style.borderRadius = "8px";
+
+    wrapper.appendChild(img);
+    el.replaceWith(wrapper);
   }
 
   function startKeithInfection() {
-    const allEls = Array.from(document.querySelectorAll("button, h1, h2, h3, p, .goblin-button"));
+    const allEls = Array.from(document.querySelectorAll("button, h1, h2, h3, .goblin-button, .hero, .team-member"));
     if (allEls.length === 0) return;
 
     const randomEl = allEls[Math.floor(Math.random() * allEls.length)];
     infectElement(randomEl);
 
-    // Schedule next infection
-    const delay = Math.random() * 4000 + 1500; // 1.5–5.5 seconds
+    const delay = Math.random() * 3000 + 1500;
     setTimeout(startKeithInfection, delay);
   }
 
-  // Start the chaos
   setTimeout(startKeithInfection, 3000);
 </script>
+
 
 </body>
 </html>
