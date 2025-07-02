@@ -1,0 +1,275 @@
+/* Reset basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f6f1;
+  color: #333;
+  line-height: 1.6;
+  overflow: hidden; /* main-content scrolls instead */
+}
+
+/* Layout: sidebar + main area */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 220px;
+  background-color: #d8e4bc;
+  padding: 2rem 1rem;
+  border-top: 30px solid #7ea04d; /* chunky snot-green */
+}
+.sidebar h1 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin-bottom: 1rem;
+}
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Sidebar avatar */
+.keith-face {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto 1rem auto;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.2));
+}
+
+/* Main content scroll area */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+/* Header with chunky top border and embedded logo */
+header {
+  position: relative;
+  background-color: #7ea04d; /* Green banner */
+  padding: 3rem 1rem 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Logo pulled into the border */
+.logo {
+  position: absolute;
+  top: -40px;
+  left: 1rem;
+  width: 80px;
+  height: auto;
+  background-color: #fff9e6;
+  padding: 0.25rem;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.brand-titles {
+  margin-left: 100px;
+  color: #fff;
+}
+
+.brand-titles h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.tagline {
+  margin-top: 0.25rem;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #fff9e6;
+}
+/* Hero Section */
+.hero {
+  background-color: #fff9e6;
+  border: 2px dashed #f4b400;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
+.hero h2 {
+  margin-bottom: 1rem;
+}
+.hero p {
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+button#clickMe1,
+button#requestGoblin {
+  background-color: #ff6b6b;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button#clickMe1:hover,
+button#requestGoblin:hover {
+  background-color: #e64a4a;
+  transform: rotate(-1deg) scale(1.05);
+}
+
+/* Services Section */
+.services {
+  margin-bottom: 2rem;
+}
+.services h2 {
+  margin-bottom: 1rem;
+}
+.services ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+.services li {
+  position: relative;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+.services li::before {
+  content: "🧹";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Testimonials (“Coin Givers”) */
+.testimonials {
+  margin-bottom: 2rem;
+}
+
+.testimonials h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #444;
+}
+
+.testimonials blockquote {
+  font-style: italic;
+  background: #efefef;
+  padding: 1rem;
+  border-left: 5px solid #d4d4d4;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  color: #333;
+}
+
+/* Team Page Styling */
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.team-member {
+  text-align: center;
+  max-width: 400px;
+}
+.team-member img.keith-img {
+  width: 240px;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Chaos shake animation */
+@keyframes shake {
+  0% { transform: translate(0); }
+  25% { transform: translate(4px, -4px); }
+  50% { transform: translate(-4px, 4px); }
+  75% { transform: translate(4px, 4px); }
+  100% { transform: translate(0); }
+}
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2rem;
+}
+.goblin-button {
+  background-color: #a7ff83;
+  color: #000;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  border: 2px dashed #333;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  font-weight: bold;
+}
+
+.goblin-button:hover {
+  background-color: #fdd835;
+  transform: rotate(-3deg) translateY(-2px) scale(1.05);
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+.keith-pointer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.neon-arrow {
+  color: #ff6b6b;
+  font-size: 1.6rem;
+  text-shadow:
+    0 0 2px #ff6b6b,
+    0 0 4px #ff6b6b,
+    0 0 6px #ff2e2e,
+    0 0 10px #ff2e2e;
+  animation: flicker 1.5s infinite alternate;
+}
+
+.label {
+  margin-top: 0.25rem;
+  color: #333;
+  font-style: italic;
+  max-width: 80px;
+  line-height: 1.2;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; text-shadow: 0 0 4px #ff6b6b, 0 0 8px #ff2e2e; }
+  20% { opacity: 0.6; text-shadow: 0 0 2px #ff6b6b; }
+  40% { opacity: 1; text-shadow: 0 0 4px #ff2e2e; }
+  60% { opacity: 0.4; text-shadow: 0 0 1px #ff2e2e; }
+  80% { opacity: 1; text-shadow: 0 0 6px #ff6b6b; }
+  100% { opacity: 0.7; text-shadow: 0 0 3px #ff2e2e; }
+}
+
