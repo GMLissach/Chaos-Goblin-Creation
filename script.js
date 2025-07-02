@@ -1,103 +1,75 @@
-const button = document.getElementById('clickMe1');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chase Button</title>
+  <style>
+    #clickMe1 {
+      position: absolute;
+      background-color: green;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
 
-// Create the decoy button
-const decoy = document.createElement('button');
-decoy.textContent = 'Definitely not the button';
-decoy.style.display = 'none';
-decoy.id = 'decoyButton';
-decoy.style.position = 'absolute';
-decoy.style.top = '200px';
-decoy.style.left = '50%';
-decoy.style.transform = 'translateX(-50%)';
-document.body.appendChild(decoy);
+  <button id="clickMe1">Click me!</button>
 
-// Message cycling
-const baseMessages = [
-  "Click me!",
-  "No really, click me!",
-  "I dare you.",
-  "Still here?",
-  "C'monnn",
-  "Do it.",
-  "You won’t.",
-  "Keith is watching.",
-];
+  <script>
+    const button = document.getElementById('clickMe1');
+    const messages = [
+      "Click me!",
+      "That tickled.",
+      "Again?",
+      "You're persistent.",
+      "Ow.",
+      "I like you.",
+      "Enough now.",
+      "Keith sees all."
+    ];
 
-const chaosMessages = [
-  "Keith has ascended.",
-  "Browser haunted.",
-  "Goblin.exe initiated.",
-  "Too late.",
-  "Wrong click.",
-];
+    let msgIndex = 0;
+    let paused = false;
+    let posX = 100;
+    let posY = 100;
 
-let index = 0;
-let interval = 2000;
-let speedup = 0.9;
-const minInterval = 150;
-const resetThreshold = 10;
-let isFrozen = false;
+    // Move toward mouse
+    document.addEventListener('mousemove', (e) => {
+      if (paused) return;
 
-function cycleMessages() {
-  if (!button) return;
+      const dx = e.clientX - posX;
+      const dy = e.clientY - posY;
+      const step = 20; // how fast it moves
 
-  const isChaos = Math.random() < 0.05;
-  const message = isChaos
-    ? chaosMessages[Math.floor(Math.random() * chaosMessages.length)]
-    : baseMessages[index % baseMessages.length];
+      posX += dx * 0.05 + (Math.random() * 10 - 5);
+      posY += dy * 0.05 + (Math.random() * 10 - 5);
 
-  button.textContent = message;
-  index++;
+      button.style.left = `${posX}px`;
+      button.style.top = `${posY}px`;
+    });
 
-  if (index >= resetThreshold) {
-    index = 0;
-    interval = 2000;
-  } else {
-    interval = Math.max(minInterval, interval * speedup);
-  }
+    // Random pause every 2 seconds
+    setInterval(() => {
+      paused = Math.random() < 0.3;
+    }, 2000);
 
-  setTimeout(cycleMessages, interval);
-}
+    // Change message when clicked
+    button.addEventListener('click', () => {
+      msgIndex = (msgIndex + 1) % messages.length;
+      button.textContent = messages[msgIndex];
+    });
+  </script>
 
-cycleMessages();
-
-// Make button dodgy — but freeze every 5 seconds for 2 seconds
-setInterval(() => {
-  isFrozen = true;
-  button.style.transition = 'transform 0.3s ease';
-  button.style.transform = 'translate(0px, 0px)';
-  setTimeout(() => {
-    isFrozen = false;
-    button.style.transition = '';
-  }, 2000);
-}, 7000);
-
-// Move on hover
-button.addEventListener('mouseover', () => {
-  if (isFrozen) return;
-  const offsetX = (Math.random() - 0.5) * 80;
-  const offsetY = (Math.random() - 0.5) * 40;
-  button.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${(Math.random() - 0.5) * 10}deg)`;
-});
-
-button.addEventListener('mouseout', () => {
-  if (!isFrozen) button.style.transform = '';
-});
-
-// Click reveals decoy
-button.addEventListener('click', () => {
-  button.textContent = "You thought that would work?";
-  decoy.style.display = 'block';
-  button.disabled = true;
-
-  setTimeout(() => {
-    button.disabled = false;
-    decoy.style.display = 'none';
-  }, 4000);
-});
-
-// Optional: decoy click chaos
-decoy.addEventListener('click', () => {
-  decoy.textContent = "You fool.";
-  decoy.style.backgroundColor = '#ff5555';
-});
+</body>
+</html>
