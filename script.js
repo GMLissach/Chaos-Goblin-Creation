@@ -1,6 +1,17 @@
 const button = document.getElementById('clickMe1');
 
-// Main text messages
+// Create the decoy button
+const decoy = document.createElement('button');
+decoy.textContent = 'Definitely not the button';
+decoy.style.display = 'none';
+decoy.id = 'decoyButton';
+decoy.style.position = 'absolute';
+decoy.style.top = '200px';
+decoy.style.left = '50%';
+decoy.style.transform = 'translateX(-50%)';
+document.body.appendChild(decoy);
+
+// Message cycling
 const baseMessages = [
   "Click me!",
   "No really, click me!",
@@ -10,32 +21,22 @@ const baseMessages = [
   "Do it.",
   "You won’t.",
   "Keith is watching.",
-  "You clicked the wrong one.",
-  "You clicked the right one?",
-  "Wait, was that it?",
-  "Keith says no.",
-  "This is your last warning.",
-  "Fine. Click then.",
 ];
 
-// Rare chaos messages (5% chance)
 const chaosMessages = [
   "Keith has ascended.",
-  "You clicked in the wrong timeline.",
-  "Your browser is now haunted.",
-  "This button is sentient.",
+  "Browser haunted.",
   "Goblin.exe initiated.",
   "Too late.",
-  "The signal has been received.",
-  "Oh, you clicked it?",
-  "KEITH APPROVES (temporarily)"
+  "Wrong click.",
 ];
 
 let index = 0;
-let interval = 2000; // Start at 2 seconds
-let speedup = 0.9;   // 10% faster each time
+let interval = 2000;
+let speedup = 0.9;
 const minInterval = 150;
-const resetThreshold = 12; // reset after 12 messages to avoid spinning out forever
+const resetThreshold = 10;
+let isFrozen = false;
 
 function cycleMessages() {
   if (!button) return;
@@ -48,10 +49,9 @@ function cycleMessages() {
   button.textContent = message;
   index++;
 
-  // Reset the madness every so often
   if (index >= resetThreshold) {
     index = 0;
-    interval = 2000; // Back to slow
+    interval = 2000;
   } else {
     interval = Math.max(minInterval, interval * speedup);
   }
@@ -61,25 +61,43 @@ function cycleMessages() {
 
 cycleMessages();
 
-// ✨ Movement: Button dodges your mouse like Keith dodges responsibility
+// Make button dodgy — but freeze every 5 seconds for 2 seconds
+setInterval(() => {
+  isFrozen = true;
+  button.style.transition = 'transform 0.3s ease';
+  button.style.transform = 'translate(0px, 0px)';
+  setTimeout(() => {
+    isFrozen = false;
+    button.style.transition = '';
+  }, 2000);
+}, 7000);
+
+// Move on hover
 button.addEventListener('mouseover', () => {
-  const offsetX = (Math.random() - 0.5) * 60;
-  const offsetY = (Math.random() - 0.5) * 30;
-  button.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${(Math.random() - 0.5) * 15}deg)`;
+  if (isFrozen) return;
+  const offsetX = (Math.random() - 0.5) * 80;
+  const offsetY = (Math.random() - 0.5) * 40;
+  button.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${(Math.random() - 0.5) * 10}deg)`;
 });
 
 button.addEventListener('mouseout', () => {
-  button.style.transform = '';
+  if (!isFrozen) button.style.transform = '';
 });
 
-// 🤡 Keith's Laugh: Click triggers audio + animation
+// Click reveals decoy
 button.addEventListener('click', () => {
-  const laugh = new Audio('keith-laugh.mp3'); // Optional: use your own file
-  laugh.play().catch(() => console.log('Keith laugh missing'));
-  button.classList.add('clicked');
+  button.textContent = "You thought that would work?";
+  decoy.style.display = 'block';
+  button.disabled = true;
 
-  // Optional styling effect (remove after 500ms)
   setTimeout(() => {
-    button.classList.remove('clicked');
-  }, 500);
+    button.disabled = false;
+    decoy.style.display = 'none';
+  }, 4000);
+});
+
+// Optional: decoy click chaos
+decoy.addEventListener('click', () => {
+  decoy.textContent = "You fool.";
+  decoy.style.backgroundColor = '#ff5555';
 });
