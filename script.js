@@ -30,11 +30,11 @@
     const button = document.getElementById('clickMe1');
     const messages = [
       "Click me!",
-      "That tickled.",
+      "Stop now.",
       "Again?",
       "You're persistent.",
       "Ow.",
-      "I like you.",
+      "Yes, it's important.",
       "Enough now.",
       "Keith sees all."
     ];
