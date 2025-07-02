@@ -299,4 +299,20 @@ footer {
   cursor: pointer;
   z-index: 999;
 }
+#keithBin {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 2rem;
+  background: #eee;
+  border: 2px dashed #666;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 99999;
+  cursor: grab;
+  transition: background 0.3s ease;
+}
+#keithBin.drag-over {
+  background: #ff6b6b;
+}
 
