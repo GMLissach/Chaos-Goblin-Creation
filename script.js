@@ -1,6 +1,3 @@
-// script.js – Corrected (remove HTML <script> wrapper tags)
-
-// Get the button element by its ID
 const button = document.getElementById('clickMe1');
 
 const messages = [
@@ -16,21 +13,29 @@ const messages = [
 
 let index = 0;
 
+// Move the button to a random position on hover
+button.addEventListener('mouseover', () => {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const buttonWidth = button.offsetWidth;
+  const buttonHeight = button.offsetHeight;
+
+  const maxX = viewportWidth - buttonWidth;
+  const maxY = viewportHeight - buttonHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  button.style.position = 'absolute';
+  button.style.left = `${randomX}px`;
+  button.style.top = `${randomY}px`;
+  button.style.transition = 'all 0.3s ease';
+});
+
 // Cycle the button text every second
 setInterval(() => {
-  if (!button) return;  // safety check (in case the element isn't found)
+  if (!button) return;
   button.textContent = messages[index % messages.length];
   index++;
 }, 1000);
 
-// On hover, move the button a bit (random jitter)
-button.addEventListener('mouseover', () => {
-  const offsetX = (Math.random() - 0.5) * 30;  // random offset between -15 and +15 px
-  const offsetY = (Math.random() - 0.5) * 15;  // random offset between -7.5 and +7.5 px
-  button.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${(Math.random() - 0.5) * 10}deg)`;
-});
-
-// On mouse out, reset the button position
-button.addEventListener('mouseout', () => {
-  button.style.transform = '';
-});
