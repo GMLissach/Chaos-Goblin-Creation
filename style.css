@@ -132,7 +132,7 @@ button#requestGoblin {
 }
 button#clickMe1:hover,
 button#requestGoblin:hover {
-  background-color: #e64a4a;
+  background-color: #4CAF50;
   transform: rotate(-1deg) scale(1.05);
 }
 
